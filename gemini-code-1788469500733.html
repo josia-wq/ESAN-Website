@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Vollbild mit Echtzeit-Uhr</title>
+
+    <style>
+
+        html, body {
+
+            margin: 0;
+
+            padding: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            overflow: hidden;
+
+            background: black;
+
+        }
+
+        .container {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+
+        }
+
+        .container img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover; /* Passt das Bild an den Bildschirm an */
+
+        }
+
+        /* Uhr ohne Seitenabstand zum roten Rahmen */
+
+        #uhr {
+
+            position: absolute;
+
+            top: 55%;    /* Position von oben (anpassbar) */
+
+            left: 50%;   /* Zentriert */
+
+            transform: translate(-50%, -50%);
+
+            color: #00a651; /* Grüner Farbton wie auf dem Bild */
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            font-size: 11vw; /* Skaliert dynamisch */
+
+            font-weight: bold;
+
+            background: #ffffff; /* Weißer Hintergrund */
+
+            padding: 0px 0px; /* Oben/Unten 8px, Links/Rechts 0px kein Abstand */
+
+           
+
+            border: 2px solid #b30000; /* Roter Rahmen */
+
+            border-radius: 8px; /* Abgerundete Ecken */
+
+            letter-spacing: 0.5px;
+
+            text-align: center;
+
+            width: 350px; /* Feste Breite, damit der Text den Rahmen ausfüllt */
+
+            height: 60px;
+
+            letter-spacing: 0.5px;
+
+            white-space: nowrap; /* Verhindert den Umbruch in eine neue Zeile */
+
+           
+        
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        #ampmTeil {
+            margin-left: 1px; /* Kleinerer Abstand zu den Zahlen */}
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+<div class="container">
+
+    <img src="25200266.png" alt="Vollbild">
+
+    <div id="uhr">00:00:00 p. m.</div>
+
+</div>
+
+
+
+<script>
+
+    function aktualisiereUhr() {
+
+        const jetzt = new Date();
+
+        let stunden = jetzt.getHours();
+
+        const minuten = String(jetzt.getMinutes()).padStart(2, '0');
+
+        const sekunden = String(jetzt.getSeconds()).padStart(2, '0');
+
+
+
+        // 12-Stunden-Format und p.m. / a.m. OHNE Leerzeichen im Text
+
+        const ampm = stunden >= 12 ? 'p.m.' : 'a.m.';
+
+        stunden = stunden % 12;
+
+        stunden = stunden ? stunden : 12; // Die '0' wird zu '12'
+
+        const stundenStr = String(stunden).padStart(2, '0');
+
+       
+
+        document.getElementById('uhr').innerHTML = `${stundenStr}:${minuten}:${sekunden}&nbsp;${ampm}`;
+
+    } // <-- Diese Klammer hat gefehlt, um die Funktion zu schließen!
+
+   
+
+    setInterval(aktualisiereUhr, 1000);
+
+    aktualisiereUhr();
+
+</script>
+
+
+
+</body>
+
+</html> 
